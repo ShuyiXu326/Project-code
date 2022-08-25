@@ -1,0 +1,194 @@
+# Figure 1
+#Draw a map showing the study sites
+library(ggplot2)
+library(ggmap)
+install.packages('ggmap')
+Longitude<-c(-35.184929,-39.14066915,-39.13484356,-39.13655399,-39.13814807,-39.12165142,-39.123586,-39.09645198,-39.09930412,-39.12724062,-39.10814594,-39.14126424,-39.14471109,-39.13988103,-39.14719301,-39.13733821,-39.13895959,-39.18118194,-39.17704218,-39.16881234,-39.15895861,-39.06727633,-39.06400296,-39.05716609,-39.04151419,-39.07498893,-39.0713181,-39.03492316,-39.03183834,-39.06328151,-39.0390459,-47.44151671,-47.51944025,-47.72969585,-47.86367361,-47.83276325,-47.34048143,-47.64741523,-47.6138473,-47.69120129,-48.11417609,-47.80057311,-47.41418391,-48.12505287,-48.2127114,-47.873203,-35.202361,-47.879569,-47.867592,-47.603525,-47.616951,-47.591215,-47.595892,-47.584854,-47.597692,-47.521386,-43.284154,-47.846089,-47.867543,-47.884081,-43.60111,-43.972326,-44.043184,-43.146806,-44.549066,-43.916367,-42.48888,-43.158532,-47.929743,-48.416097,-42.63106,-44.863633,-41.584559,-43.607346,-42.261971,-42.036271,-42.570575,-51.712222,-51.696111,-39.566139,-49.25528,-49.25528,-49.25528,-42.75556,-35.09222,-47.417783,-47.505275,-47.205003,-47.478085,-47.544482,-46.620013,-48.08,-48.13,-42.86,-35.1,-53.28,-51.33,-51.59,-51.11,-34.95)
+Latitude<-c(-6.086251,-15.00684321,-15.01621918,-14.99654532,-14.998398,-14.99303894,-14.99238368,-14.96949817,-14.971078,-14.98634266,-14.96171962,-15.13805267,-15.13906029,-15.14257913,-15.1456632,-15.11365171,-15.11490554,-15.13273337,-15.13999139,-15.13129059,-15.1494061,-15.18399197,-15.15792777,-15.16476232,-15.17231778,-15.15063401,-15.15357229,-15.17888157,-15.17434284,-15.17302372,-15.17706462,-22.05033143,-20.73535918,-21.55564617,-22.17089932,-21.52652292,-21.27941729,-22.14771356,-21.64308912,-22.24207107,-22.30362961,-21.60909899,-21.84274815,-22.26698888,-22.25912489,-21.95798247,-5.838102,-21.984087,-21.971324,-21.739419,-21.717757,-21.729754,-21.720625,-21.726323,-21.720218,-22.406729,-22.972713,-21.963656,-21.971895,-21.97105,-19.300894,-19.876469,-19.904935,-22.383828,-23.018111,-19.893398,-22.328934,-22.95225,-25.095838,-24.272366,-19.764141,-23.356475,-22.230148,-19.353555,-22.583818,-22.421653,-22.73306,-26.582222,-26.588889,-15.391917,-28.48361,-28.48361,-28.48361,-22.43139,-8.11861,-22.820551,-22.569174,-22.671121,-22.358928,-22.396379,-23.420009,-25.17,-25.13,-20.8,-6.8,-22.75,-25.06,-25.91,-30.19,-7.91)
+df<-as.data.frame(cbind(Longitude,Latitude))
+register_google(key='AIzaSyAvOu7jyzzLbYJ64rjpPuUL7jYNVwNAAI4')
+mapgilbert<-get_map(location=c(lon=mean(df$Longitude),lat=mean(df$Latitude)),zoom=4,maptype='satellite',scale=2)
+ggmap(mapgilbert) +
+  geom_point(data = df, aes(x = Longitude, y = Latitude, fill = "red", alpha = 0.5), size = 3, shape = 21) +
+  guides(fill='none', alpha='none', size='none')
+
+# Figure 2
+# Remove unwanted species and sites
+FINAL$Species<-gsub(" ","_",FINAL$Species)
+FINAL1<-subset(FINAL,Site!="bat1168"&Site!="bat1169"&Site!="bat1170"&Site!="bat1171")
+# Remove inaccurate sites and species
+FINAL1<-subset(FINAL1,Site!='bat1001'&Site!='bat1002'&Site!='bat1004'&Site!='bat1005'&Site!='bat1006'&Site!='bat1007'&Site!='bat1008'&Site!='bat1009'&Site!='bat1010'&Site!='bat1011'&Site!='bat1012'&Site!='bat1013'&Site!='bat1014'&Site!='bat1015'&Site!='bat1016'&Site!='bat1017'&Site!='bat1018')
+FINAL1<-subset(FINAL1,Site!='bat1049'&Site!='bat1050'&Site!='bat1051'&Site!='bat1052'&Site!='bat1053'&Site!='bat1054'&Site!='bat1072'&Site!='bat1073'&Site!='bat1074'&Site!='bat1075'&Site!='bat1076'&Site!='bat1077'&Site!='bat1078'&Site!='bat1079'&Site!='bat1080'&Site!='bat1081'&Site!='bat1082'&Site!='bat1083'&Site!='bat1084'&Site!='bat1085'&Site!='bat1086'&Site!='bat1087'&Site!='bat1089'&Site!='bat1090'&Site!='bat1091'&Site!='bat1092'&Site!='bat1093'&Site!='bat1094'&Site!='bat1095'&Site!='bat1096'&Site!='bat1097'&Site!='bat1098'&Site!='bat1099')
+FINAL1<-subset(FINAL1,Site!='bat1108'&Site!='bat1172'&Site!='bat1177'&Site!='bat1184'&Site!='bat1191'&Site!='bat1130'&Site!='bat1131'&Site!='bat1134'&Site!='bat1135'&Site!='bat1136'&Site!='bat1137'&Site!='bat1138'&Site!='bat1139'&Site!='bat1140'&Site!='bat1142'&Site!='bat1143'&Site!='bat1149'&Site!='bat1150'&Site!='bat1151'&Site!='bat1152'&Site!='bat1163'&Site!='bat1164'&Site!='bat1165'&Site!='bat1166'&Site!='bat1167'&Site!='bat1168'&Site!='bat1169'&Site!='bat1170'&Site!='bat1171'&Site!='bat1174'&Site!='bat1175'&Site!='bat1176'&Site!='bat1178'&Site!='bat1179'&Site!='bat1181'&Site!='bat1182'&Site!='bat1183'&Site!='bat1173'&Site!='bat1180'&Site!='bat1185'&Site!='bat1186'&Site!='bat1187'&Site!='bat1188'&Site!='bat1189'&Site!='bat1190'&Site!='bat1192'&Site!='bat1194'&Site!='bat1197'&Site!='bat1205')
+FINAL1<-subset(FINAL1,Species!="Micronycteris_microtis"&Species!="Lonchophylla_peracchii"&Species!="Vampyriscus_brocki"&Species!="Chiroderma_villosum"&Species!='Dryadonycteris_capixaba'&Species!='Glyphonycteris_sylvestris'&Species!='Lonchophylla_mordax'&Species!='Lophostoma_brasilience'&Species!='Micronycteris_megalotis'&Species!='Myotis_izecksohni'&Species!='Myotis_lavali'&Species!='Myotis_levis'&Species!='Platyrrhhinus_incarum'&Species!='Tonatia_saurophila'&Species!='Trinycteris_nicefori'&Species!='Vampyressa_pusilla')
+FINAL1$Distance_in_km<-FINAL1$Distance/1000
+
+library(lme4)
+FINAL2<-subset(FINAL1,Species!="Vampyrum_spectrum"&Species!="Choeroniscus_minor"&Species!="Cormura_brevirostris"&Species!="Cynomops_greenhalli"&Species!="Eumops_glaucinus"&Species!="Eumops_perotis"&Species!="Furipterus_horrens"&Species!="Glyphonycteris_daviesi"&Species!="Lonchophylla_bokermanni"&Species!="Lophostoma_schulzi"&Species!="Molossops_neglectus"&Species!="Molossops_temminckii"&Species!="Myotis_dinellii"&Species!="Natalus_espiritosantensis"&Species!="Peropteryx_kappleri"&Species!="Promops_nasutus"&Species!="Rhogeessa_io")
+FINAL2$C3000_prop<-FINAL2$C3000/100
+FINAL2$C5000_prop<-FINAL2$C5000/100
+FINAL2$C1000_prop<-FINAL2$C1000/100
+FINAL2$sqrt_dist_edge<-ifelse(FINAL2$Distance_in_km<0,-(-FINAL2$Distance_in_km)^(1/2),FINAL2$Distance_in_km^(1/2))
+
+# Remove out of range sites
+FINAL3<-FINAL2[FINAL2$sqrt_dist_edge>=0,]
+
+# Glmer model for all species
+M1 <- glmer(Presence ~ sqrt_dist_edge * C1000_prop +
+              (C1000_prop | Study) + (sqrt_dist_edge * C1000_prop | Species),
+            data=FINAL3, family='binomial', 
+            control=glmerControl(optimizer="bobyqa",  optCtrl=list(maxfun=2e5)))
+summary(M1)
+
+
+# Glmer figure output
+library(hexbin)
+library(grid)
+install.packages('gridBase')
+library(gridBase)
+install.packages('fields')
+library(fields)
+
+data<-M1@frame
+rangeFC<-range(data$C1000_prop,na.rm=TRUE)
+rangeDE<-range(data$sqrt_dist_edge,na.rm=TRUE)
+res <- 51
+seqFC <- seq(rangeFC[1], rangeFC[2], length=res)
+seqDE <- seq(rangeDE[1], rangeDE[2], length=res)
+pred<-expand.grid(C1000_prop=seqFC,sqrt_dist_edge=seqDE)
+pred$pred<-predict(M1,newdata=pred,re.form=~0)
+pdf('Figure_allspecies.pdf', height=89/25.4, width=89/25.4, pointsize=7, family='Helvetica')
+par(mai=c(0.22,0.22,0.05,0.05), mgp=c(0.75, 0.05, 0), tcl=0.2, pch=19, cex=1, cex.axis=5/7, cex.lab=1) 
+
+plot(seqDE ~ seqFC, type='n', 
+     xlab='Proportion forest cover', ylab='Distance to range edge (km)',
+     yaxt='n')
+yax <- seq(-100, 100, by=10)
+axis(2, at=yax, labels=yax^2 * sign(yax))
+hb <- with(data, hexbin(C1000_prop, sqrt_dist_edge))
+hb_xy <- as.data.frame(hcell2xy(hb))
+names(hb_xy) <- c('C1000_prop', 'sqrt_dist_edge')
+hb_xy$pred <- predict(M1, newdata=hb_xy, re.form= ~ 0, type='response')
+hb_xy$log2_n <- log2(hb@count)
+p_range <- with(hb_xy, seq(min(pred), max(pred), length=101))
+cols <- terrain.colors(100, alpha=NULL)
+hb_xy$col <- cols[findInterval(hb_xy$pred, p_range, all.inside=TRUE)]
+n_log2_bins <- (0:ceiling(max(hb_xy$log2_n)))
+alpha <- rev(as.hexmode(255 - 20 * n_log2_bins))
+hb_xy$alpha <- alpha[findInterval(hb_xy$log2_n, n_log2_bins, all.inside=TRUE)]
+hb_xy$col <- toupper(with(hb_xy, paste(col, alpha, sep='')))
+vp <- baseViewports()
+pushViewport(vp$plot)
+sx <- hb@xbins/diff(hb@xbnds)
+sy <- (hb@xbins * hb@shape)/diff(hb@ybnds)
+inner <- 0.5
+outer <- (2 * inner)/sqrt(3)
+dx <- inner/sx
+dy <- outer/(2 * sy)
+
+with(hb_xy, hexpolygon(C1000_prop, sqrt_dist_edge, dx=dx, dy=dy, fill=col, border=NA))
+popViewport()
+
+prob <- plogis(matrix(pred$pred, ncol=res))
+contour(seqFC, seqDE, prob,  type='n', add=TRUE, lwd=1, labcex=0.75)
+abline( h= th, lty=2, lwd=1)
+
+dev.off()
+
+# Calculating threshold for M5
+params <- fixef(M1)
+th <- params['C1000_prop'] / - params['sqrt_dist_edge:C1000_prop']
+sigma <- vcov(M1)
+install.packages('MASS')
+library(MASS)
+sim <- mvrnorm(1000000, mu=params, Sigma=sigma)
+th <- sim[,'C1000_prop'] / - sim[,'sqrt_dist_edge:C1000_prop']
+quantile(th, c(0.025, 0.975)) ^ 2
+
+
+# Table 1
+tab_model(M1)
+
+
+# Glmer for certain common species occurred in more than 30 sites (12 species)
+FINAL4<-FINAL3[FINAL3$Presence=='1',]
+counts<-table(FINAL4$Species)
+common30x<-names(counts)[counts>30]
+data30x<-subset(FINAL4,Species %in% common30x)
+
+Art_li<-subset(FINAL3,Species=='Artibeus_lituratus')
+Car_per<-subset(FINAL3,Species=='Carollia_perspicillata')
+Des_ro<-subset(FINAL3,Species=='Desmodus_rotundus')
+Glo_sor<-subset(FINAL3,Species=='Glossophaga_soricina')
+Stur_li<-subset(FINAL3,Species=='Sturnira_lilium')
+Ano_cau<-subset(FINAL3,Species=='Anoura_caudifer')
+Art_obs<-subset(FINAL3,Species=='Artibeus_obscurus')
+Art_pla<-subset(FINAL3,Species=='Artibeus_planirostris')
+Myo_nig<-subset(FINAL3,Species=='Myotis_nigricans')
+Pla_lin<-subset(FINAL3,Species=='Platyrrhinus_lineatus')
+Rhi_pum<-subset(FINAL3,Species=='Rhinophylla_pumilio')
+Der_ci<-subset(FINAL3,Species=='Dermanura_cinerea')
+
+
+# Figrue 3
+# Repeat for each species listed above
+
+# Art_li
+M_Art_li<-glmer(Presence~C1000_prop*sqrt_dist_edge+(1|Study)+(1|Site),data=Art_li,family="binomial",nAGQ = 0)
+summary(M_Art_li)
+data<-M_Der_ci@frame
+rangeFC<-range(data$C1000_prop,na.rm=TRUE)
+rangeDE<-range(data$sqrt_dist_edge,na.rm=TRUE)
+res <- 51
+seqFC <- seq(rangeFC[1], rangeFC[2], length=res)
+seqDE <- seq(rangeDE[1], rangeDE[2], length=res)
+pred<-expand.grid(C1000_prop=seqFC,sqrt_dist_edge=seqDE)
+pred$pred<-predict(M_Der_ci,newdata=pred,re.form=~0)
+
+pdf('Figure_M_Der_ci.pdf', height=4, width=4, pointsize=7, family='Helvetica')
+par(mai=c(0.22,0.22,0.05,0.05), mgp=c(0.75, 0.05, 0), tcl=0.2, pch=19, cex=1.2, cex.axis=1.2, cex.lab=1.2) 
+plot(seqDE ~ seqFC, type='n', 
+     xlab='Proportion forest cover', ylab='Distance to range edge (km)',
+     yaxt='n')
+yax <- seq(-100, 100, by=10)
+axis(2, at=yax, labels=yax^2 * sign(yax))
+hb <- with(data, hexbin(C1000_prop, sqrt_dist_edge))
+hb_xy <- as.data.frame(hcell2xy(hb))
+names(hb_xy) <- c('C1000_prop', 'sqrt_dist_edge')
+hb_xy$pred <- predict(M_Der_ci, newdata=hb_xy, re.form= ~ 0, type='response')
+hb_xy$log2_n <- log2(hb@count)
+p_range <- with(hb_xy, seq(min(pred), max(pred), length=101))
+cols <- terrain.colors(100, alpha=NULL)
+hb_xy$col <- cols[findInterval(hb_xy$pred, p_range, all.inside=TRUE)]
+n_log2_bins <- (0:ceiling(max(hb_xy$log2_n)))
+alpha <- rev(as.hexmode(255 - 20 * n_log2_bins))
+hb_xy$alpha <- alpha[findInterval(hb_xy$log2_n, n_log2_bins, all.inside=TRUE)]
+hb_xy$col <- toupper(with(hb_xy, paste(col, alpha, sep='')))
+vp <- baseViewports()
+pushViewport(vp$plot)
+sx <- hb@xbins/diff(hb@xbnds)
+sy <- (hb@xbins * hb@shape)/diff(hb@ybnds)
+inner <- 0.5
+outer <- (2 * inner)/sqrt(3)
+dx <- inner/sx
+dy <- outer/(2 * sy)
+
+with(hb_xy, hexpolygon(C1000_prop, sqrt_dist_edge, dx=dx, dy=dy, fill=col, border=NA))
+popViewport()
+
+prob <- plogis(matrix(pred$pred, ncol=res))
+contour(seqFC, seqDE, prob,  type='n', add=TRUE, lwd=1, labcex=1.4)
+abline( h= th, lty=2, lwd=1)
+
+dev.off()
+
+
+# Table 2
+# Repeat for each species listed above
+tab_model(M_Art_li)
+
+
+
+
+
+
